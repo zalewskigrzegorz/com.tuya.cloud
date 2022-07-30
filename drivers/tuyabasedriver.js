@@ -5,6 +5,14 @@ const Homey = require('homey');
 class TuyaBaseDriver extends Homey.Driver {
     static categorietypes = [
         {
+            type: "airConditioner",
+            category: ["kt"]
+        },
+        {
+            type: "starProjector",
+            category: ["dj"]
+        },
+        {
             "type": "light",
             "category": ['dj', 'dd', 'fwd', 'tgq', 'xdd', 'dc', 'tgkg']
         },
@@ -84,6 +92,7 @@ class TuyaBaseDriver extends Homey.Driver {
 
     get_devices_by_categories(categories) {
         let devices = this.homey.app.devices;
+        console.log("devices: " + JSON.stringify(devices));
         return devices.filter( device => categories.find(category => category === device.category));
 
         // let device_list = [];
