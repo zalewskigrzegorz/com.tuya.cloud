@@ -54,6 +54,9 @@ class TuyaStarProjectorDevice extends TuyaBaseDevice {
       if (valueObj.onoff != null) {
         this.set_on_off(valueObj.onoff === true || valueObj.onoff === 1);
       }
+      if (valueObj.laser_onoff != null) {
+        this.set_laser_on_off(valueObj.laser_onoff === true || valueObj.laser_onoff === 1);
+      }
       if (valueObj.light_temperature != null) {
         this.set_color_temp(1 - valueObj.light_temperature);
       }
@@ -192,6 +195,9 @@ class TuyaStarProjectorDevice extends TuyaBaseDevice {
 
   set_on_off(onoff) {
     this.sendCommand("onoff", onoff);
+  }
+  set_laser_on_off(onoff) {
+    this.sendCommand("switch_led", onoff);
   }
 
   set_color_temp(color_temp) {

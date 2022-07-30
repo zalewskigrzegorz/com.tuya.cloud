@@ -161,6 +161,8 @@ class TuyaCloudApp extends Homey.App {
                 break;
             case 'airConditioner':
                 return this.homey.drivers.getDriver('air-conditioner');
+            case 'starProjector':
+                return this.homey.drivers.getDriver('smart-star-projector');
             case 'airPurifier':
                 break;
             case 'fan':

@@ -409,6 +409,7 @@
       "class": "light",
       "capabilities": [
         "onoff",
+        "laser_onoff",
         "dim",
         "light_temperature",
         "light_hue",
@@ -542,6 +543,54 @@
     }
   ],
   "capabilities": {
+    "laser_onoff": {
+      "type": "boolean",
+      "title": {
+        "en": "Laser",
+        "nl": "Laser",
+        "de": "Laser",
+        "fr": "Laser",
+        "it": "Laser",
+        "sv": "Laser",
+        "no": "Laser",
+        "es": "Laser",
+        "da": "Laser",
+        "ru": "Лазер",
+        "pl": "Laser"
+      },
+      "chartType": "stepLine",
+      "insights": true,
+      "insightsTitleTrue": {
+        "en": "Turned on",
+        "nl": "Aangezet",
+        "de": "Eingeschaltet",
+        "fr": "Activé",
+        "it": "Attivato",
+        "sv": "Aktiverad",
+        "no": "Slått på",
+        "es": "Encendido",
+        "da": "Tændt",
+        "ru": "Включено",
+        "pl": "Włączone"
+      },
+      "insightsTitleFalse": {
+        "en": "Turned off",
+        "nl": "Uitgezet",
+        "de": "Ausgeschaltet",
+        "fr": "Désactivé",
+        "it": "Disattivato",
+        "sv": "Inaktiverad",
+        "no": "Slått av",
+        "es": "Apagado",
+        "da": "Slukket",
+        "ru": "Выключено",
+        "pl": "Wyłączone"
+      },
+      "getable": true,
+      "setable": true,
+      "uiComponent": "toggle",
+      "uiQuickAction": true
+    },
     "target_temperature": {
       "type": "number",
       "min": 16,
