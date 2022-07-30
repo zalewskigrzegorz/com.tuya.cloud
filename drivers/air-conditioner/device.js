@@ -1,31 +1,21 @@
 'use strict';
 
 const TuyaBaseDevice = require('../tuyabasedevice');
+const DataUtil = require("../../util/datautil");
 
 const CAPABILITIES_SET_DEBOUNCE = 1000;
 
-class TuyaLightDevice extends TuyaBaseDevice {
+class TuyaAirConditionerDevice extends TuyaBaseDevice {
 
     onInit() {
         this.initDevice(this.getData().id);
-        this.setDeviceConfig(this.get_deviceConfig());
-        this.registerMultipleCapabilityListener(this.getCapabilities(), async (values, options) => { return this._onMultipleCapabilityListener(values, options); }, CAPABILITIES_SET_DEBOUNCE);
+        this.updateCapabilities(this.get_deviceConfig().status);
+        this.registerMultipleCapabilityListener(this.getCapabilities(), async (values, options) => {
+            return this._onMultipleCapabilityListener(values, options); }, CAPABILITIES_SET_DEBOUNCE);
         this.log(`Tuya AirConditioner ${this.getName()} has been initialized`);
     }
-
-    setDeviceConfig(deviceConfig) {
-        if (deviceConfig != null) {
-            this.log("set AirConditioner device config: " + JSON.stringify(deviceConfig));
-            let statusArr = deviceConfig.status ? deviceConfig.status : [];
-            this.updateCapabilities(statusArr);
-        }
-        else {
-            this.homey.app.logToHomey("No device config found");
-        }
-    }
-
     _onMultipleCapabilityListener(valueObj, optsObj) {
-        this.log("Light capabilities changed by Homey: " + JSON.stringify(valueObj));
+        this.log("Air conditioner capabilities changed by Homey: " + JSON.stringify(valueObj));
         try {
             if (valueObj.target_temperature != null) {
                 this.set_target_temperature(valueObj.target_temperature*10);
@@ -53,7 +43,9 @@ class TuyaLightDevice extends TuyaBaseDevice {
                     this.normalAsync('target_temperature', status.value/10);
                     break;
                 case 'temp_current':
-                    this.normalAsync('measure_temperature', status.value);
+                    // todo: enable this after fixing bug:
+                    // Error: Invalid Capability: measure_temperature
+                    // this.normalAsync('measure_temperature', status.value);
                     break;
                 case 'mode':
                     this.normalAsync('thermostat_mode_std', status.value);
@@ -65,7 +57,7 @@ class TuyaLightDevice extends TuyaBaseDevice {
     normalAsync(name, hbValue) {
         this.log("Set air conditioner Capability " + name + " with " + hbValue);
         this.setCapabilityValue(name, hbValue)
-            .catch(this.error);
+            .catch(error => console.error(error));
     }
 
     sendCommand(code, value) {
@@ -95,4 +87,4 @@ class TuyaLightDevice extends TuyaBaseDevice {
     }
 }
 
-module.exports = TuyaLightDevice;
+module.exports = TuyaAirConditionerDevice;

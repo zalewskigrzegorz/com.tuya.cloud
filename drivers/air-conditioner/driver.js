@@ -2,7 +2,7 @@
 
 const TuyaBaseDriver = require('../tuyabasedriver');
 
-class TuyaLightDriver extends TuyaBaseDriver {
+class TuyaAirConditionerDriver extends TuyaBaseDriver {
 
     onInit() {
         this.log('Tuya Air conditioner driver has been initialized');
@@ -33,4 +33,4 @@ class TuyaLightDriver extends TuyaBaseDriver {
     }
 }
 
-module.exports = TuyaLightDriver;
+module.exports = TuyaAirConditionerDriver;
